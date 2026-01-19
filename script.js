@@ -1,6 +1,8 @@
 window.addEventListener("load", function() {
   const now = new Date();
-  const formatted = now.toLocaleString("mt-MT", {
+  const locale = "mt-MT";
+
+  const formatted = now.toLocaleString(locale, {
     dateStyle: "full",
     timeStyle: "medium"
   });
