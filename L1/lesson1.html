@@ -15,7 +15,31 @@
   <link rel="stylesheet" href="lezioni.css">
 </head>
 <body>
+   <h1>PDF by JavaScript</h1>
+    <p>Click on it:</p>
 
+    <!-- Pulsante per il primo PDF -->
+    <button id="pdf1Button">Daphne</button>
+    <br>
+
+    <!-- Pulsante per il secondo PDF -->
+    <button id="pdf2Button">Fabio</button>
+
+    <script>
+        // Funzione per aprire il PDF in una nuova scheda
+        function openPDF(url) {
+            window.open(url, '_blank');
+        }
+
+        // Aggiungi gli event listener ai pulsanti
+        document.getElementById('pdf1Button').addEventListener('click', function() {
+            openPDF('Daphne.pdf'); // Cambia con il percorso corretto
+        });
+
+        document.getElementById('pdf2Button').addEventListener('click', function() {
+            openPDF('Fabio.pdf'); // Cambia con il percorso corretto
+        });
+    </script>
   <h1>第1课 · 2026年1月21日</h1>
   <p class="subtitle">Lesson 1 – First Dialogue</p>
 
