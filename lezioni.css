@@ -1,0 +1,58 @@
+/* =========================
+   SFONDO LEZIONI
+========================= */
+
+body {
+  background: linear-gradient(135deg, #f8b6c8, #f6a15a);
+  min-height: 100vh;
+}
+
+/* =========================
+   CONTENITORE DIALOGO
+========================= */
+
+.dialogue {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0;
+}
+
+/* blocco singola battuta */
+.dialogue-block {
+  list-style-position: inside;
+  background: rgba(255, 255, 255, 0.92);
+  margin-bottom: 28px;
+  padding: 22px 28px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+
+  /* ALLINEAMENTO A SINISTRA */
+  text-align: left;
+}
+
+/* =========================
+   TESTI
+========================= */
+
+/* IDEOGRAMMI */
+.cn {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0b2a4a;   /* blu scuro */
+  margin-bottom: 6px;
+}
+
+/* PINYIN */
+.pinyin {
+  font-size: 18px;
+  font-weight: normal;
+  color: #0b2a4a;   /* stesso blu, NON grassetto */
+  margin-bottom: 4px;
+}
+
+/* INGLESE */
+.en {
+  font-size: 18px;
+  font-weight: normal;
+  color: #1b7f3a;   /* verde */
+}
