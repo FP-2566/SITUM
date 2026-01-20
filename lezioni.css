@@ -56,3 +56,28 @@ body {
   font-weight: normal;
   color: #1b7f3a;   /* verde */
 }
+
+/* =========================
+   BOTTONE TORNA ALLA HOME
+========================= */
+
+.back-home {
+  display: inline-block;
+  margin: 40px auto 0;
+  padding: 12px 26px;
+  background: linear-gradient(135deg, #0b2a4a, #143d6b);
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 30px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+  transition: all 0.25s ease;
+}
+
+/* hover */
+.back-home:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.35);
+  background: linear-gradient(135deg, #143d6b, #0b2a4a);
+}
+
