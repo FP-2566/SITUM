@@ -1,35 +1,60 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
 import time
+import random
+import os
+from tqdm import tqdm
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 
-def APERTURA_0(url, head, lato):
-    # Configurazione delle opzioni di Chrome
-    options = Options()
-    # Se non viene passato 'head' è perché si vuole la modalità headless
-    if not head:
-        options.add_argument("--headless")  # Modalità headless
-    else:
-        if lato:  # Se head è True, sposta la finestra fuori schermo
-            options.add_argument("window-position=-2000,0")
-        else:
-            print("[INFO] Modalità non headless, la finestra si aprirà")
-    # Gestione automatica di ChromeDriver
+
+
+def BOTTONE(driver, button_id):
+    button = WebDriverWait(driver, 25).until(EC.presence_of_element_located((By.XPATH, button_id)))
+    button.click()
+    print("🔍 Pulsante cliccato") 
+
+
+def PAGINA_0(URL="https://www.atlas.com.mt/work/work-at-atlas/#tabsanchor", headless=1):
+    chrome_options = Options()
+    if headless:
+        chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    # Usa webdriver-manager per scaricare automaticamente la versione corretta
     service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
-    
-    try:
-        print("[INFO] Opening URL...")
-        driver.get(url)
-        time.sleep(3)  # Attende che la pagina venga caricata (può essere regolato)
-    except WebDriverException as e:
-        print(f"[ERROR] Failed to load page: {e}")
-        driver.quit()
-        return None
-    
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver.get(URL)
     return driver
 
-# Esempio di esecuzione
-# driver = APERTURA_0("https://careers.unicredit.eu/it_IT/jobsuche/Login", head=True, lato=True)
+driver = PAGINA_0(URL="https://www.atlas.com.mt/work/work-at-atlas/#tabsanchor", headless=0)
+
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+def OFFERTE_URLS(driver, xpath):
+    try:
+        print("🔍 Attendo il nodo target...")
+        WebDriverWait(driver, 15).until(
+            EC.visibility_of_element_located((By.XPATH, xpath))
+        )
+        print("✅ Nodo trovato. Cerco link...")
+        node = driver.find_element(By.XPATH, xpath)
+        links = node.find_elements(By.TAG_NAME, 'a')
+        urls = [link.get_attribute('href') for link in links if link.get_attribute('href')]
+        print(f"🔗 Trovati {len(urls)} link.")
+        return urls, driver
+    except Exception as e:
+        print(f"❌ Errore durante l'estrazione degli URL: {e}")
+        return [], driver
+
+
+# Esegui la funzione per ottenere gli URL
+URLS, driver = OFFERTE_URLS(driver=driver, xpath='//*[@id="BambooHR-ATS"]/div/ul')
+print(URLS)
