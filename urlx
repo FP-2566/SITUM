@@ -1,1 +1,35 @@
-https://www.chromedriverdownload.com/en/?utm_source=chatgpt.com
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
+import time
+
+def APERTURA_0(url, head, lato):
+    # Configurazione delle opzioni di Chrome
+    options = Options()
+    # Se non viene passato 'head' è perché si vuole la modalità headless
+    if not head:
+        options.add_argument("--headless")  # Modalità headless
+    else:
+        if lato:  # Se head è True, sposta la finestra fuori schermo
+            options.add_argument("window-position=-2000,0")
+        else:
+            print("[INFO] Modalità non headless, la finestra si aprirà")
+    # Gestione automatica di ChromeDriver
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
+    
+    try:
+        print("[INFO] Opening URL...")
+        driver.get(url)
+        time.sleep(3)  # Attende che la pagina venga caricata (può essere regolato)
+    except WebDriverException as e:
+        print(f"[ERROR] Failed to load page: {e}")
+        driver.quit()
+        return None
+    
+    return driver
+
+# Esempio di esecuzione
+# driver = APERTURA_0("https://careers.unicredit.eu/it_IT/jobsuche/Login", head=True, lato=True)
